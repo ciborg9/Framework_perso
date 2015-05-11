@@ -3,8 +3,8 @@ namespace app\controllers;
 
 class IndexController
 {
-    static public function indexAction() {
-        echo "INDEXACTION";
+    public function indexAction() {
+        echo __file__."test";
     }
 }
 ?>
