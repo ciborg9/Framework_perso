@@ -1,6 +1,5 @@
 <?php
 namespace MySite;
-use MySite\Controller;
 
 Class Core {
 
