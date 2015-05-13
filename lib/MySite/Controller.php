@@ -1,5 +1,5 @@
 <?php
-namespace app\controllers;
+namespace MySite;
 
 abstract Class Controller {
 

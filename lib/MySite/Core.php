@@ -1,13 +1,17 @@
 <?php
 namespace MySite;
+use MySite\Controller;
 
 Class Core {
 
     public static function registerAutoload($class) {
-        /*$class = explode('\\', $class);*/
+        if (preg_match("/MySite/",$class) && file_exists('../lib/' . $class . '.php')) {
+            return require_once '../lib/' . $class . '.php';
+        }
+        /*var_dump($class);echo "avant if";*/
         if (file_exists('../' . $class . '.php')) {
-            var_dump($class);
-            require '../' . $class . '.php';
+            /*var_dump($class);echo "var_dump(class)";*/
+             return require_once '../' . $class . '.php';
         }
     }
 
@@ -28,7 +32,7 @@ Class Core {
         }
         else // SINON
         {
-           include "../app/controllers/HomeController.php";
+            echo "controller introuvable";
         }
     }
 }
