@@ -1,6 +1,8 @@
 <?php
 namespace MySite;
 use PDO;
+use Exception;
+use PDOException;
 
 abstract Class Model {
     //rajouter els param pour test
@@ -54,15 +56,10 @@ abstract Class Model {
     }
 
     public function __construct(){
-        var_dump(basename(__CLASS__)."ee");echo "test";
-        echo "construct";
-        if (empty($this->_pdo)) {
-            echo "</br>tentative de co";
+        if (!is_object(self::$_pdo)) {
             try
             {
                 self::$_pdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, $this->_username, $this->_password);
-                //$this->_pdo = new PDO('mysql:host=localhost;dbname=common-database;', 'root', '');
-                echo "</br>connection";
             }
             catch (PDOException $e)
             {
@@ -79,8 +76,7 @@ abstract Class Model {
                 $pdo = self::$_pdo;
                 $req = $pdo->prepare($sql);
                 $req->execute($value);
-                $data = $req->fetchAll();
-                var_dump($data);
+                $data = $req->fetch();
                 return $data;
             };
         }
