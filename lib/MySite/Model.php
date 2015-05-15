@@ -4,12 +4,12 @@ use PDO;
 
 abstract Class Model {
     //rajouter els param pour test
-    protected static $_pdo;
-    private static $_dbname;
-    private $_username;
-    private $_password;
-    private $_host;
-    private $_unix_socket;
+    static protected $_pdo;
+    private $_dbname = "my_framework";
+    private $_username = "rot";
+    private $_password = "";
+    private $_host = "127.0.0.1";
+    private $_unix_socket = "/home/meyerv_p/.mysql/mysql.sock";
 
     public function getPdo(){
         return $this->_pdo;
@@ -54,16 +54,30 @@ abstract Class Model {
     }
 
     public function __construct(){
+        var_dump(basename(__CLASS__)."ee");echo "test";
+        echo "construct";
         if (empty($this->_pdo)) {
+            echo "</br>tentative de co";
             try
             {
-                $this->_pdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, 'root', '');
+                $this->setPdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, $this->_username, $this->_password);
                 //$this->_pdo = new PDO('mysql:host=localhost;dbname=common-database;', 'root', '');
+                echo "</br>connection";
             }
-            catch (Exception $e)
+            catch (PDOException $e)
             {
-                die('Erreur : ' . $e->getMessage());
+                die(print_r($e,true));
             }
+        }
+    }
+    public function findOne($condition=null, $value=null) {
+        if (is_string($condition) && is_array($value) && !empty($condition) && !empty($value)) {
+            // a voir pour comparer nb_value et nb ? preg_match_all("/?/", $condition);
+            $table = explode("Table.php", basename(__FILE__));
+            $table=$table[0];
+            var_dump($this);
+            $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $condition;
+            var_dump($sql);
         }
     }
 }

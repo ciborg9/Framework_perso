@@ -7,6 +7,7 @@ class IndexController extends Controller {
 
     public function indexAction() {
         $model = new UserTable();
+        $data = $model->findOne("login = ?", ['ciborg']);
         return $this->render(":ViewFilename",array('data' => 'LICORNE'));
     }
 }
