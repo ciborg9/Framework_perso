@@ -6,7 +6,7 @@ abstract Class Model {
     //rajouter els param pour test
     static protected $_pdo;
     private $_dbname = "my_framework";
-    private $_username = "rot";
+    private $_username = "root";
     private $_password = "";
     private $_host = "127.0.0.1";
     private $_unix_socket = "/home/meyerv_p/.mysql/mysql.sock";
@@ -60,7 +60,7 @@ abstract Class Model {
             echo "</br>tentative de co";
             try
             {
-                $this->setPdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, $this->_username, $this->_password);
+                self::$_pdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, $this->_username, $this->_password);
                 //$this->_pdo = new PDO('mysql:host=localhost;dbname=common-database;', 'root', '');
                 echo "</br>connection";
             }
@@ -72,12 +72,17 @@ abstract Class Model {
     }
     public function findOne($condition=null, $value=null) {
         if (is_string($condition) && is_array($value) && !empty($condition) && !empty($value)) {
-            // a voir pour comparer nb_value et nb ? preg_match_all("/?/", $condition);
-            $table = explode("Table.php", basename(__FILE__));
-            $table=$table[0];
-            var_dump($this);
-            $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $condition;
-            var_dump($sql);
+            if (substr_count($condition, '?') === count($value)) {
+                // a voir pour comparer nb_value et nb ? preg_match_all("/?/", $condition);
+                $table = preg_replace('/^.+(\\\\(.+))table/', '$2', strtolower(get_class($this)));
+                $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $condition;
+                $pdo = self::$_pdo;
+                $req = $pdo->prepare($sql);
+                $req->execute($value);
+                $data = $req->fetchAll();
+                var_dump($data);
+                return $data;
+            };
         }
     }
 }
