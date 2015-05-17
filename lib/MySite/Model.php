@@ -78,6 +78,8 @@ abstract Class Model {
                 $req->execute($value);
                 $data = $req->fetch();
                 return $data;
+            }else {
+                throw new Exception("Error not equal key,value for findOne", 1);
             };
         }
     }

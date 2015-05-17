@@ -1,6 +1,6 @@
 <?php
 namespace MySite;
-use MySite\Exceptions\NotFoundException;
+use MySite\exceptions\NotFoundException;
 use Exception;
 
 Class Core {
