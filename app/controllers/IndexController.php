@@ -18,6 +18,8 @@
  * @link     null
 */
 namespace app\controllers;
+use app\models\UserTable;
+use MySite\Controller;
 /**
  *Description du fichier controleurs/User.php
  *Class User heritant de Table Model
@@ -39,15 +41,17 @@ namespace app\controllers;
  * @link      null
 */
 
-use app\models\UserTable;
-use MySite\Controller;
 
-class IndexController extends Controller {
+class IndexController extends Controller
+{
 
     /**
-    * methode d'affichage affiche des donner de la basse de donner dans une vue
+    * Methode d'affichage affiche des donner 
+    * de la basse de donner dans une vue
+    * @return vue d'affichage
     */
-    public function indexAction() {
+    public function indexAction() 
+    {
         $model = new UserTable();
         $data = $model->findOne("login = ?", ['ciborg']);
         return $this->render(":ViewFilename", $data);

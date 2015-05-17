@@ -18,6 +18,7 @@
  * @link     null
 */
 namespace app\controllers;
+use MySite\Controller;
 /**
  *Description du fichier controleurs/User.php
  *Class User heritant de Table Model
@@ -39,14 +40,16 @@ namespace app\controllers;
  * @link      null
 */
 
-use MySite\Controller;
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
 
     /**
-    * methode d'affichage affiche le chemain complet du fichier de la methode
+    * Affichage chemain complet du fichier
+    * @return void
     */
-    static public function indexAction() {
+    static public function indexAction() 
+    {
         echo __file__;
     }
 }

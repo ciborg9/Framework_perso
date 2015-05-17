@@ -18,6 +18,7 @@
  * @link     null
 */
 namespace app\models;
+use MySite\Model;
 /**
  *Description du fichier controleurs/User.php
  *Class User heritant de Table Model
@@ -38,8 +39,8 @@ namespace app\models;
  * @license   http://www.php.net/license/3_01.txt PHP License 3.01
  * @link      null
 */
-use MySite\Model;
 
-class UserTable extends Model {
+class UserTable extends Model
+{
 }
 ?>

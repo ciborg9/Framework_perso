@@ -18,10 +18,9 @@
  * @link     null
 */
 namespace MySite\exceptions;
-
 use Exception;
 /**
- *class NotfoundException cette class contien mes execption
+ *Class NotfoundException cette class contien mes execption
  *gestionnaire des users
  *
  * PHP version 5

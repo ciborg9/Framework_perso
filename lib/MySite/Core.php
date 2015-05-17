@@ -18,6 +18,8 @@
  * @link     null
 */
 namespace MySite;
+use MySite\exceptions\NotFoundException;
+use Exception;
 /**
  *Description du fichier controleurs/User.php
  *Class User heritant de Table Model
@@ -38,45 +40,45 @@ namespace MySite;
  * @license   http://www.php.net/license/3_01.txt PHP License 3.01
  * @link      null
 */
-use MySite\exceptions\NotFoundException;
-use Exception;
 
-Class Core {
+Class Core
+{
     /**
     * Methode de recherche d'annonces
     * @param string $class contien une string namespace de la class a charger
     * @return string retourne l'include d'une class
     */
-    public static function registerAutoload($class) {
-        if (preg_match("/MySite/",$class) && file_exists('../lib/' . $class . '.php')) {
-            return require_once '../lib/' . $class . '.php';
+    public static function registerAutoload($class) 
+    {
+        if (preg_match("/MySite/", $class) && file_exists('../lib/'.$class.'.php')) {
+            return include_once '../lib/' . $class . '.php';
         }
         /*var_dump($class);echo "avant if";*/
         if (file_exists('../' . $class . '.php')) {
             /*var_dump($class);echo "var_dump(class)";*/
-             return require_once '../' . $class . '.php';
+             return include_once '../' . $class . '.php';
         }
     }
     /**
     * Methode d"execution du framework
+    * @return void
     */
-    public static function run() {
+    public static function run() 
+    {
         try {
             session_start();
             spl_autoload_register('MySite\Core::registerAutoload');
             /*include('include/log_db.php');*/
             $call = ucfirst(isset($_GET['page']) ? $_GET['page'] : "index");
             $call = explode('/', $call);
-            if (file_exists('../app/controllers/'.$call[0].'Controller.php')) // si le controller existe
-            {
+            if (file_exists('../app/controllers/'.$call[0].'Controller.php')) {
+                /* si le controller existe*/
                 $call[1] = isset($call[1]) ? $call[1] : 'index';
                 $controller_name = "app\\controllers\\" . $call[0] . 'Controller';
                 $action = $call[1]."Action";
                 $obj = new $controller_name;
                 $obj->$action();
-            }
-            else // SINON
-            {
+            } else {
                 throw new NotfoundException();
             }
         } catch(Exception $e) {

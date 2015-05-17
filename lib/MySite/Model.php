@@ -18,6 +18,9 @@
  * @link     null
 */
 namespace MySite;
+use PDO;
+use Exception;
+use PDOException;
 /**
  *Description du fichier controleurs/User.php
  *Class User heritant de Table Model
@@ -38,13 +41,11 @@ namespace MySite;
  * @license   http://www.php.net/license/3_01.txt PHP License 3.01
  * @link      null
 */
-use PDO;
-use Exception;
-use PDOException;
 
-abstract Class Model {
+abstract Class Model
+{
     //rajouter els param pour test
-    static protected $_pdo;
+    static protected $pdo;
     private $_dbname = "my_framework";
     private $_username = "root";
     private $_password = "";
@@ -52,122 +53,156 @@ abstract Class Model {
     private $_unix_socket = "/home/meyerv_p/.mysql/mysql.sock";
 
     /**
-    * getter pdo.
+    * Getter pdo.
     * @return object pdo object
     */
-    public function getPdo(){
-        return $this->_pdo;
+    public function getPdo()
+    {
+        return $this->pdo;
     }
     /**
-    * setter de pdo
-    * @param  string $data de donner pour la mise ajour  des donner de connection
+    * Setter de pdo
+     *
+    * @param string $data de donner pour la mise ajour  des donner de connection
+    *
+    * @return void
     */
-    public function setPdo($data){
-        $this->_pdo=$data;
+    public function setPdo($data)
+    {
+        $this->pdo=$data;
     }
     /**
-    * getter dbname.
+    * Getter dbname.
     * @return string pdo object
     */
-    public function getDbname() {
+    public function getDbname() 
+    {
         return $this->_dbname;
     }
     /**
-    * setter de pdo
-    * @param  string $data de donner pour la mise ajour  des donner de connection
+    * Setter de pdo
+     *
+    * @param string $data de donner pour la mise ajour  des donner de connection
+    *
+    * @return void
     */
-    public function setDbname($data) {
+    public function setDbname($data) 
+    {
         $this->_dbname = $data;
     }
     /**
-    * getter dbname.
+    * Getter dbname.
     * @return string pdo object
     */
-    public function getUsername() {
+    public function getUsername() 
+    {
         return $this->_username;
     }
     /**
-    * setter de pdo
-    * @param  string $data de donner pour la mise ajour  des donner de connection
+    * Setter de pdo
+     *
+    * @param string $data de donner pour la mise ajour  des donner de connection
+    *
+    * @return void
     */
-    public function setUsername($data) {
+    public function setUsername($data) 
+    {
         $this->_username=$data;
     }
     /**
-    * getter dbname.
+    * Getter dbname.
     * @return string pdo object
     */
-    public function getPassword() {
+    public function getPassword() 
+    {
         return $this->_password;
     }
     /**
-    * setter de pdo
-    * @param  string $data de donner pour la mise ajour  des donner de connection
+    * Setter de pdo
+     *
+    * @param string $data de donner pour la mise ajour  des donner de connection
+    *
+    * @return void
     */
-    public function setPassword($data) {
+    public function setPassword($data) 
+    {
         $this->_password = $data;
     }
     /**
-    * getter dbname.
+    * Getter dbname.
     * @return string pdo object
     */
-    public function getHost() {
+    public function getHost() 
+    {
         return $this->_host;
     }
     /**
-    * setter de pdo
-    * @param  string $data de donner pour la mise ajour  des donner de connection
+    * Setter de pdo
+     *
+    * @param string $data de donner pour la mise ajour  des donner de connection
+    *
+    * @return void
     */
-    public function setHost($data) {
+    public function setHost($data) 
+    {
         $this->$_host = $data;
     }
     /**
-    * getter dbname.
+    * Getter dbname.
     * @return string pdo object
     */
-    public function getUnix_socket() {
+    public function getUnixSocket()
+    {
         return $this->_unix_socket;
     }
     /**
-    * setter de pdo
-    * @param  string $data de donner pour la mise ajour  des donner de connection
+    * Setter de pdo
+     *
+    * @param string $data de donner pour la mise ajour  des donner de connection
+    *
+    * @return void
     */
-    public function setUnix_socket($data) {
+    public function setUnixSocket($data) 
+    {
         $this->_unix_socket = $data;
     }
     /**
     * CONSTRUCT
+    *
+    * @return void
     */
-    public function __construct(){
-        if (!is_object(self::$_pdo)) {
+    public function __construct()
+    {
+        if (!is_object(self::$pdo)) {
             try
             {
-                self::$_pdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, $this->_username, $this->_password);
+                self::$pdo = new PDO('mysql:host=' . $this->_host . ';dbname=' . $this->_dbname . ';unix_socket=' . $this->_unix_socket, $this->_username, $this->_password);
             }
             catch (PDOException $e)
             {
-                die(print_r($e,true));
+                die(print_r($e, true));
             }
         }
     }
     /**
     * Methode de recherche d'annonces
-    * @param string $view contien une string de donner pour le where
-    * @param array $param contien une array de valeur pour le prepare
+    * @param string $condition contien une string de donner pour le where
+    * @param array  $value     contien une array de valeur pour le prepare
     * @return array de donner pour la vue
     */
-    public function findOne($condition=null, $value=null) {
+    public function findOne($condition=null, $value=null) 
+    {
         if (is_string($condition) && is_array($value) && !empty($condition) && !empty($value)) {
             if (substr_count($condition, '?') === count($value)) {
                 // a voir pour comparer nb_value et nb ? preg_match_all("/?/", $condition);
                 $table = preg_replace('/^.+(\\\\(.+))table/', '$2', strtolower(get_class($this)));
                 $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $condition;
-                $pdo = self::$_pdo;
+                $pdo = self::$pdo;
                 $req = $pdo->prepare($sql);
                 $req->execute($value);
                 $data = $req->fetch();
                 return $data;
-            }else {
+            } else {
                 throw new Exception("Error not equal key,value for findOne", 1);
             };
         }

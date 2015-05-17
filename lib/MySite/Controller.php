@@ -39,14 +39,17 @@ namespace MySite;
  * @link      null
 */
 
-abstract Class Controller {
+abstract Class Controller
+{
 
     /**
     * Methode de recherche d'annonces
-    * @param string $view contien une string de donner pour le where
-    * @param array $param contien une array de valeur pour le prepare
+    * @param string $view  contien une string de donner pour le where
+    * @param array  $param contien une array de valeur pour le prepare
+    * @return void
     */
-    public function render($view, $param = array()) {
+    public function render($view, $param = array()) 
+    {
         $views = explode(':', $view);
         if (empty($views[0])) {
             $dir = '../app/views/' . $views[1] . '.html';
@@ -57,7 +60,8 @@ abstract Class Controller {
         if (file_exists($dir)) {
             $file = file_get_contents($dir);
             if (!empty($param)) {
-                //traitement de remplacement des clé par les valeur avec preg_replace
+                // traitement de remplacement des clé
+                // par les valeur avec preg_replace
                 foreach ($param as $key => $value) {
                     $file = preg_replace('/{{ (' . $key . ') }}/', $value, $file);
                 }
