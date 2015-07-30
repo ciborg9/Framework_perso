@@ -1,6 +1,6 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
+ *file description core controller
  *fichier contenant la Class Annonces()
  *
  * PHP version 5
@@ -19,9 +19,7 @@
 */
 namespace MySite;
 /**
- *Description du fichier controleurs/User.php
- *Class User heritant de Table Model
- *gestionnaire des users
+ *this class is base controller for all child controller
  *
  * PHP version 5
  *
@@ -43,12 +41,12 @@ abstract Class Controller
 {
 
     /**
-    * Methode de recherche d'annonces
-    * @param string $view  contien une string de donner pour le where
-    * @param array  $param contien une array de valeur pour le prepare
+    * Methode replace var tag html by content
+    * @param string $view  is html code
+    * @param array  $param all data content for insert
     * @return void
     */
-    public function render($view, $param = array()) 
+    public function render($view, $param = array())
     {
         $views = explode(':', $view);
         if (empty($views[0])) {
@@ -56,12 +54,10 @@ abstract Class Controller
         } else {
             $dir = '../app/views/' . $views[0] . '/' . $views[1] . '.html';
         }
-        //var_dump($views);
         if (file_exists($dir)) {
             $file = file_get_contents($dir);
             if (!empty($param)) {
-                // traitement de remplacement des clé
-                // par les valeur avec preg_replace
+                // process for replace tag html by content
                 foreach ($param as $key => $value) {
                     $file = preg_replace('/{{ (' . $key . ') }}/', $value, $file);
                 }

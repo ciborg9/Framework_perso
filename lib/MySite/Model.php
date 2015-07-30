@@ -1,7 +1,6 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
- *fichier contenant la Class Annonces()
+ *file description model base for all other model extend
  *
  * PHP version 5
  *
@@ -22,9 +21,7 @@ use PDO;
 use Exception;
 use PDOException;
 /**
- *Description du fichier controleurs/User.php
- *Class User heritant de Table Model
- *gestionnaire des users
+ * Class model base acces to bdd and project model
  *
  * PHP version 5
  *
@@ -44,7 +41,7 @@ use PDOException;
 
 abstract Class Model
 {
-    //rajouter els param pour test
+    //add file for auto conf
     static protected $pdo;
     private $_dbname = "my_framework";
     private $_username = "root";
@@ -63,7 +60,7 @@ abstract Class Model
     /**
     * Setter de pdo
      *
-    * @param string $data de donner pour la mise ajour  des donner de connection
+    * @param string $data
     *
     * @return void
     */
@@ -75,18 +72,18 @@ abstract Class Model
     * Getter dbname.
     * @return string pdo object
     */
-    public function getDbname() 
+    public function getDbname()
     {
         return $this->_dbname;
     }
     /**
     * Setter de pdo
      *
-    * @param string $data de donner pour la mise ajour  des donner de connection
+    * @param string $data
     *
     * @return void
     */
-    public function setDbname($data) 
+    public function setDbname($data)
     {
         $this->_dbname = $data;
     }
@@ -94,18 +91,18 @@ abstract Class Model
     * Getter dbname.
     * @return string pdo object
     */
-    public function getUsername() 
+    public function getUsername()
     {
         return $this->_username;
     }
     /**
     * Setter de pdo
      *
-    * @param string $data de donner pour la mise ajour  des donner de connection
+    * @param string $data
     *
     * @return void
     */
-    public function setUsername($data) 
+    public function setUsername($data)
     {
         $this->_username=$data;
     }
@@ -113,18 +110,18 @@ abstract Class Model
     * Getter dbname.
     * @return string pdo object
     */
-    public function getPassword() 
+    public function getPassword()
     {
         return $this->_password;
     }
     /**
     * Setter de pdo
      *
-    * @param string $data de donner pour la mise ajour  des donner de connection
+    * @param string $data
     *
     * @return void
     */
-    public function setPassword($data) 
+    public function setPassword($data)
     {
         $this->_password = $data;
     }
@@ -132,18 +129,18 @@ abstract Class Model
     * Getter dbname.
     * @return string pdo object
     */
-    public function getHost() 
+    public function getHost()
     {
         return $this->_host;
     }
     /**
     * Setter de pdo
      *
-    * @param string $data de donner pour la mise ajour  des donner de connection
+    * @param string $data
     *
     * @return void
     */
-    public function setHost($data) 
+    public function setHost($data)
     {
         $this->$_host = $data;
     }
@@ -158,11 +155,11 @@ abstract Class Model
     /**
     * Setter de pdo
      *
-    * @param string $data de donner pour la mise ajour  des donner de connection
+    * @param string $data
     *
     * @return void
     */
-    public function setUnixSocket($data) 
+    public function setUnixSocket($data)
     {
         $this->_unix_socket = $data;
     }
@@ -185,16 +182,16 @@ abstract Class Model
         }
     }
     /**
-    * Methode de recherche d'annonces
+    * Methode search one resulte on database
     * @param string $condition contien une string de donner pour le where
     * @param array  $value     contien une array de valeur pour le prepare
     * @return array de donner pour la vue
     */
-    public function findOne($condition=null, $value=null) 
+    public function findOne($condition=null, $value=null)
     {
         if (is_string($condition) && is_array($value) && !empty($condition) && !empty($value)) {
             if (substr_count($condition, '?') === count($value)) {
-                // a voir pour comparer nb_value et nb ? preg_match_all("/?/", $condition);
+                // four back slash for windows ?
                 $table = preg_replace('/^.+(\\\\(.+))table/', '$2', strtolower(get_class($this)));
                 $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $condition;
                 $pdo = self::$pdo;

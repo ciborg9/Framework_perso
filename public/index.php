@@ -1,7 +1,6 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
- *fichier contenant la Class Annonces()
+ * file description home router for acces all user
  *
  * PHP version 5
  *

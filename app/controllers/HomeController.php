@@ -1,8 +1,5 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
- *fichier contenant la Class Annonces()
- *
  * PHP version 5
  *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
@@ -20,9 +17,7 @@
 namespace app\controllers;
 use MySite\Controller;
 /**
- *Description du fichier controleurs/User.php
- *Class User heritant de Table Model
- *gestionnaire des users
+ * this class homecontroller extend Class Controller
  *
  * PHP version 5
  *
@@ -45,10 +40,10 @@ class HomeController extends Controller
 {
 
     /**
-    * Affichage chemain complet du fichier
+    * display complet path for this file
     * @return void
     */
-    static public function indexAction() 
+    static public function indexAction()
     {
         echo __file__;
     }

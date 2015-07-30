@@ -1,7 +1,6 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
- *fichier contenant la Class Annonces()
+ * file description indexcontroller.php content home functionality
  *
  * PHP version 5
  *
@@ -21,9 +20,7 @@ namespace app\controllers;
 use app\models\UserTable;
 use MySite\Controller;
 /**
- *Description du fichier controleurs/User.php
- *Class User heritant de Table Model
- *gestionnaire des users
+ * this class indexcontroller extend Class Controller.
  *
  * PHP version 5
  *
@@ -46,11 +43,11 @@ class IndexController extends Controller
 {
 
     /**
-    * Methode d'affichage affiche des donner 
+    * Methode get and display user data "ciborg"
     * de la basse de donner dans une vue
     * @return vue d'affichage
     */
-    public function indexAction() 
+    public function indexAction()
     {
         $model = new UserTable();
         $data = $model->findOne("login = ?", ['ciborg']);

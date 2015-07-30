@@ -1,7 +1,6 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
- *fichier contenant la Class Annonces()
+ *file descript notfoundException child exception
  *
  * PHP version 5
  *
@@ -20,7 +19,7 @@
 namespace MySite\exceptions;
 use Exception;
 /**
- *Class NotfoundException cette class contien mes execption
+ *Class NotfoundException this class extend Exception
  *gestionnaire des users
  *
  * PHP version 5

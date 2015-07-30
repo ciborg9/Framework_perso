@@ -1,7 +1,6 @@
 <?php
 /**
- *Description du fichier modeles Annoncescontroller.php
- *fichier contenant la Class Annonces()
+ *file description UserTable.php
  *
  * PHP version 5
  *
@@ -20,9 +19,7 @@
 namespace app\models;
 use MySite\Model;
 /**
- *Description du fichier controleurs/User.php
- *Class User heritant de Table Model
- *gestionnaire des users
+ * this class extend model for interact in database
  *
  * PHP version 5
  *
