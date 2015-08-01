@@ -1,7 +1,6 @@
 <?php
 /**
  *file description core controller
- *fichier contenant la Class Annonces()
  *
  * PHP version 5
  *

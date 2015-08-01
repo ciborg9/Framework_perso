@@ -1,7 +1,5 @@
 <?php
 /**
- * file description indexcontroller.php content home functionality
- *
  * PHP version 5
  *
  * LICENSE: This source file is subject to version 3.01 of the PHP license

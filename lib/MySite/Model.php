@@ -59,9 +59,7 @@ abstract Class Model
     }
     /**
     * Setter de pdo
-     *
     * @param string $data
-    *
     * @return void
     */
     public function setPdo($data)
@@ -78,9 +76,7 @@ abstract Class Model
     }
     /**
     * Setter de pdo
-     *
     * @param string $data
-    *
     * @return void
     */
     public function setDbname($data)
@@ -97,9 +93,7 @@ abstract Class Model
     }
     /**
     * Setter de pdo
-     *
     * @param string $data
-    *
     * @return void
     */
     public function setUsername($data)
@@ -116,9 +110,7 @@ abstract Class Model
     }
     /**
     * Setter de pdo
-     *
     * @param string $data
-    *
     * @return void
     */
     public function setPassword($data)
@@ -135,9 +127,7 @@ abstract Class Model
     }
     /**
     * Setter de pdo
-     *
     * @param string $data
-    *
     * @return void
     */
     public function setHost($data)
@@ -154,9 +144,7 @@ abstract Class Model
     }
     /**
     * Setter de pdo
-     *
     * @param string $data
-    *
     * @return void
     */
     public function setUnixSocket($data)
@@ -164,10 +152,8 @@ abstract Class Model
         $this->_unix_socket = $data;
     }
     /**
-    * CONSTRUCT
-    *
-    * @return void
-    */
+     * CONSTRUCT
+     */
     public function __construct()
     {
         if (!is_object(self::$pdo)) {

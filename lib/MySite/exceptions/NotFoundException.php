@@ -20,7 +20,6 @@ namespace MySite\exceptions;
 use Exception;
 /**
  *Class NotfoundException this class extend Exception
- *gestionnaire des users
  *
  * PHP version 5
  *
